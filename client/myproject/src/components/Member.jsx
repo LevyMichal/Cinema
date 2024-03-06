@@ -20,7 +20,7 @@ export default function Member({ memberData }) {
 
         await deleteItem(`http://127.0.0.1:5000/subscriptions/members/${memberData._id}`)
 
-        dispatch({ type: "DELETE_MEMBER", payload: memberData._id });
+        dispatch({ type: "DELETE", payload: memberData, entity: "members" });
 
         alert(`The member "${memberData.name}" deleted successfully`);
         navigate('/mainPage/subscriptions/members')

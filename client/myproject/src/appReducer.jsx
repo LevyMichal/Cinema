@@ -1,38 +1,36 @@
 
 export default function appReducer(store = {}, action) {
+
+    const { entity, payload } = action;
+
     switch (action.type) {
 
         case 'LOAD':
             console.log(action.payload)
             return action.payload;
 
-        //movies:
 
-        case 'ADD_MOVIE':
-            const newMovie = action.payload
-            const moviesCopy = store.movies
-            return { ...store, movies: [...moviesCopy, newMovie] }; // Add new movie to movies list
-
-        case 'UPDATE_MOVIE':
-            const relevantIdToUpdate = action.payload._id
-            const moviesCopyToUpdate = store.movies
-            const finalMoviesAfterUpdate = moviesCopyToUpdate.map((movie) => movie._id === relevantIdToUpdate ? action.payload : movie);
-            return { ...store, movies: finalMoviesAfterUpdate }
+        case 'ADD':
+            return {
+                ...store,
+                [entity]: [...store[entity], payload]
+            };
 
 
-        case 'DELETE_MOVIE':
-            const relevantIdToDlt = action.payload
-            const moviesCopyToDlt = store.movies
-            const finalMoviesAfterDlt = moviesCopyToDlt.filter((m) => m._id !== relevantIdToDlt)
-            return { ...store, movies: finalMoviesAfterDlt }
+        case 'UPDATE':
+            const entityAfterUpdate = store[entity].map((item) => item._id === payload._id ? payload : item);
+            return {
+                ...store,
+                [entity]: entityAfterUpdate
+            }
 
-        //subscriptions:
 
-        case 'ADD_SUB':
-            const newSubscription = action.payload
-            const subscriptionsCopy = store.subscriptions
-            return { ...store, subscriptions: [...subscriptionsCopy, newSubscription] };
-
+        case 'DELETE':
+            const entityAfterDlt = store[entity].filter((item) => item._id !== payload._id)
+            return {
+                ...store,
+                [entity]: entityAfterDlt
+            }
 
 
         default:

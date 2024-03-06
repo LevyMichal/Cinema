@@ -17,7 +17,7 @@ export default function Movie({ movieData }) {
         await deleteItem(`http://127.0.0.1:5000/subscriptions/movies/${movieData._id}`)
 
 
-        dispatch({ type: "DELETE_MOVIE", payload: movieData._id });
+        dispatch({ type: "DELETE", payload: movieData, entity: "movies" });
 
         alert(`The movie "${movieData.name}" deleted successfully`);
         navigate('/mainPage/movies')
@@ -28,7 +28,7 @@ export default function Movie({ movieData }) {
 
             <h2>{movieData.name}</h2>
             <h3>{movieData.premiered}</h3>
-            <h4>Geners: {movieData.genres?.map((g) => `${g}, `)}</h4>
+            <h4>Genres: {movieData.genres?.map((g) => `${g}, `)}</h4>
             <img src={movieData.image} style={{ width: '100px', height: "150px" }} />
             <br></br>
 

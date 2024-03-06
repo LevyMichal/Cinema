@@ -32,7 +32,7 @@ export default function Movies() {
 
                 <Link to={'/mainPage/addMovie'}><button >Add Movie</button><br></br></Link>
 
-                {(finalMovies.length > 0 ? finalMovies : movies)?.map((movie) => <Movie key={movie._id} movieData={movie} />)}
+                {(finalMovies.length > 0 ? finalMovies : movies)?.map((movie) => <Movie key={movie._id} movieData={movie} />).reverse()}
 
             </div>
 

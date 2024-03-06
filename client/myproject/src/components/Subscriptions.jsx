@@ -72,7 +72,7 @@ export default function Subscriptions(props) {
         const result = await addItem("http://127.0.0.1:5000/subscriptions/subscriptions", subscription);
         console.log(result);
 
-        dispatch({ type: "ADD_SUB", payload: result });
+        dispatch({ type: "ADD", payload: result, entity: "subscriptions" });
 
 
         event.preventDefault();

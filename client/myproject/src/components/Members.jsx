@@ -28,7 +28,7 @@ export default function Members() {
 
             <div>
 
-                {(finalMembers.length > 0 ? finalMembers : members)?.map((member) => <Member key={member._id} memberData={member} />)}
+                {(finalMembers.length > 0 ? finalMembers : members)?.map((member) => <Member key={member._id} memberData={member} />).reverse()}
 
             </div>
 

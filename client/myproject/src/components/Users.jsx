@@ -9,7 +9,7 @@ export default function Users() {
         <div>
 
             {
-                users?.map((user) => <User key={user._id} userData={user} />)
+                users?.map((user) => <User key={user._id} userData={user} />).reverse()
             }
 
         </div>

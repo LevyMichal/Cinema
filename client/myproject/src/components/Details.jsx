@@ -66,14 +66,14 @@ export default function Details(props) {
 
     //add item
 
-    const add = async (event, url, type) => {
+    const add = async (event, url, entity) => {
         event.preventDefault(); // Prevent default form submission
 
         const newItem = await addItem(url, obj);
         console.log(newItem)
 
         // Dispatch action to update list in Redux store
-        dispatch({ type: type, payload: newItem });
+        dispatch({ type: "ADD", payload: newItem, entity: entity });
 
         alert(`The new movie "${newItem.name}" created successfully`);
 
@@ -84,7 +84,7 @@ export default function Details(props) {
 
     //update item
 
-    const update = async (event, url, type) => {
+    const update = async (event, url, entity) => {
         event.preventDefault(); // Prevent default form submission
 
         console.log(obj);
@@ -92,7 +92,7 @@ export default function Details(props) {
         console.log(updatedItem);
 
         // Dispatch action to update list in Redux store
-        dispatch({ type: type, payload: updatedItem });
+        dispatch({ type: 'UPDATE', payload: updatedItem, entity: entity });
 
         props.editMovie ? navigate('/mainPage/movies') : null
         props.editMember ? navigate('/mainPage/subscriptions/members') : null
@@ -111,8 +111,8 @@ export default function Details(props) {
                     {props.addMovie ? <h2>New Movie: </h2> : <h2>Edit Movie "{itemToUpdate?.name}" </h2>}
 
                     <form onSubmit={props.addMovie
-                        ? () => add(event, moviesURL, 'ADD_MOVIE')
-                        : () => update(event, moviesURL, 'UPDATE_MOVIE')}>
+                        ? () => add(event, moviesURL, "movies")
+                        : () => update(event, moviesURL, "movies")}>
 
                         <div>
                             Name: <input required
@@ -156,8 +156,8 @@ export default function Details(props) {
                     {props.addMember ? <h2>New Member: </h2> : <h2>Edit Member "{itemToUpdate?.name}" </h2>}
 
                     <form onSubmit={props.addMember
-                        ? () => add(event, membersURL, 'ADD_MEMBER')
-                        : () => update(event, membersURL, 'UPDATE_MEMBER')}>
+                        ? () => add(event, membersURL, 'members')
+                        : () => update(event, membersURL, 'members')}>
 
                         <div>
                             Name: <input required
@@ -196,8 +196,8 @@ export default function Details(props) {
                     {props.addUser ? <h2>New User: </h2> : <h2>{`Edit User: ${itemToUpdate?.firstName} ${itemToUpdate?.lastName}`} </h2>}
 
                     <form onSubmit={props.addUser
-                        ? () => add(event, usersURL, 'ADD_USER')
-                        : () => update(event, usersURL, 'UPDATE_USER')}>
+                        ? () => add(event, usersURL, 'users')
+                        : () => update(event, usersURL, 'users')}>
 
                         <div>
                             First Name: <input type="text" required
