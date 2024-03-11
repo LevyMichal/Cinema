@@ -37,14 +37,16 @@ async function addSubscription(subscriptionData) {
 
 //update subscription
 async function updateSubscription(id, subscription) {
-    const updatedSubscription = await SubscriptionModel.findByIdAndUpdate(id, subscription)
+    await SubscriptionModel.findByIdAndUpdate(id, subscription)
+    const updatedSubscription = getSubscriptionById(id)
+
     return updatedSubscription
 }
 
 //delete subscription
 async function deleteSubscription(id) {
     await SubscriptionModel.findByIdAndDelete(id)
-    return `the subscription whis ID ${id} DELETED`
+    return `the subscription with ID ${id} DELETED`
 }
 
 module.exports = { getAllSubscriptions, getSubscriptionById, addSubscription, updateSubscription, deleteSubscription }

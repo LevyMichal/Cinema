@@ -38,7 +38,7 @@ class PermissionsFile:
         index = next((i for i, user in enumerate(permissions) if user["id"] == id))
 
         # Update the specified field with the new value
-        permissions[0]["permissions"] = updated_value
+        permissions[index]["permissions"] = updated_value
 
         # Save the updated list back to the JSON file
         with open(self.__path, "w") as f:

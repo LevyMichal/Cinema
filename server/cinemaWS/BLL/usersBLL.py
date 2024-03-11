@@ -82,7 +82,7 @@ class UsersBLL:
 
         # final user from all the data sources:
         user = {
-            "id": id,
+            "_id": id,
             "userName": user_name,
             "password": password,
             "firstName": first_name,
@@ -133,18 +133,6 @@ class UsersBLL:
 
 
     def update_user(self,id,fields_names, updated_values):
-
-        # data from users DB:
-        users_db = list(self.__users_db.get_all_users())
-
-        #checked if this user exists
-        user_exists = list(
-            filter(lambda u: str(u["_id"]) == id, users_db)
-        )
-
-        if not user_exists:
-            print (f"the user with ID {id} is not exist.")
-            return f"the user with ID {id} is not exist."
         
         for i,field_name in enumerate (fields_names):
         
@@ -164,9 +152,11 @@ class UsersBLL:
 
                 # Use Permissions File DAL for json file fields
                 self.__permissions_file.update_permissions(id, updated_values[i])
+
+        updated_user=self.get_user_by_id(id)
             
-        print(f"The relevant fields: {fields_names} for user with ID {id} updated successfully")
-        return f"The relevant fields: {fields_names} for user with ID {id} updated successfully"
+        # print({"updated_user":updated_user})
+        return updated_user
 
         
 

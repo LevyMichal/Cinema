@@ -21,8 +21,8 @@ def get_one(id):
 @users.route("/", methods=["POST"])
 def create_user():
     new_user = request.json
-    status = users_BLL.add_user(new_user)
-    return jsonify({"msg": status})
+    result = users_BLL.add_user(new_user)
+    return jsonify(result)
 
 
 @users.route("/<id>", methods=["PUT"])
@@ -30,12 +30,12 @@ def update_user(id):
     data = request.json
     fields_names = list(data.keys())
     updated_values = list(data.values())
-    status = users_BLL.update_user(id, fields_names, updated_values)
+    result = users_BLL.update_user(id, fields_names, updated_values)
 
-    return jsonify({"msg": status})
+    return jsonify(result)
 
 
 @users.route("/<id>", methods=["DELETE"])
 def delete_user(id):
-    status = users_BLL.delete_user(id)
-    return jsonify({"msg": status})
+    result = users_BLL.delete_user(id)
+    return jsonify(result)

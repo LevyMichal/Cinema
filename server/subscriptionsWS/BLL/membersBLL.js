@@ -22,14 +22,15 @@ async function addMember(member) {
 
 //update member
 async function updateMember(id, member) {
-    updatedMember = await MemberModel.findByIdAndUpdate(id, member)
+    await MemberModel.findByIdAndUpdate(id, member)
+    updatedMember = getMemberById(id)
     return updatedMember
 }
 
 //delete member
 async function deleteMember(id) {
     await MemberModel.findByIdAndDelete(id)
-    return `the member whis ID ${id} DELETED`
+    return `the member with ID ${id} DELETED`
 }
 
 module.exports = { getAllMembers, getMemberById, addMember, updateMember, deleteMember }
