@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Link } from 'react-router-dom';
 import { addItem } from '../utils';
@@ -15,12 +15,13 @@ export default function Subscriptions(props) {
     const allMembers = useSelector(store => store.members);
 
     // data for subscription by memberId
-
     const subscriptionByMember = useSelector(store => {
         const foundSubscription = store.subscriptions?.find(subscription => subscription.memberId === props.memberId);
+        // console.log(foundSubscription)
         return foundSubscription !== undefined ? foundSubscription : null;
     })
 
+    //return movies
     const moviesWatched = subscriptionByMember?.movies.map(movie => {
         const relevantMovie = allMovies?.find(m => m._id === movie.movieId);
         return relevantMovie ? { id: movie.movieId, name: relevantMovie.name, date: movie.date } : null;
@@ -47,10 +48,6 @@ export default function Subscriptions(props) {
 
 
 
-
-
-
-
     const displayAddSubscribed = () => {
         setIsSubscribed(!isSubscribed)
     }
@@ -60,6 +57,8 @@ export default function Subscriptions(props) {
 
     //add subscription
     const addSubscription = async (event) => {
+
+        event.preventDefault();
 
         const subscription = {
             memberId: props.memberId,
@@ -72,11 +71,7 @@ export default function Subscriptions(props) {
         const result = await addItem("http://127.0.0.1:5000/subscriptions/subscriptions", subscription);
         console.log(result);
 
-        dispatch({ type: "ADD", payload: result, entity: "subscriptions" });
-
-
-        event.preventDefault();
-
+        dispatch({ type: "UPDATE", payload: result, entity: "subscriptions" });
     }
 
 
@@ -116,7 +111,7 @@ export default function Subscriptions(props) {
                                     {moviesWatched?.map((movie) =>
                                         <div key={movie.id}>
                                             <li >
-                                                <Link to={`/mainPage/movie/${movie.id}`}>{movie.name}</Link>
+                                                <Link to={`/mainPage/editMovie/${movie.id}`}>{movie.name}</Link>
                                                 &nbsp;{movie.date}
                                             </li>
                                             <br></br>

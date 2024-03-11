@@ -8,12 +8,15 @@ export default function User({ userData }) {
             <h4>User Name: {userData.userName}</h4>
             <h4>Created Date: {userData.createdDate}</h4>
             <h4>Permissions:
-                {userData.permissions
-                    .map((p, index) => <ul>
-                        <li key={index}>{p}</li>
-                        <br></br>
-                    </ul>)
+                {userData.permissions.length > 0
+                    ? userData.permissions
+                        .map((p, index) => <ul>
+                            <li key={index}>{p}</li>
+                            <br></br>
+                        </ul>)
+                    : " No Permissions"
                 }
+
             </h4>
 
             <Link to={`/mainPage/editUser/${userData._id}`}><button>Edit</button></Link>&nbsp;

@@ -14,10 +14,19 @@ export default function appReducer(store = {}, action) {
             return {
                 ...store,
                 [entity]: [...store[entity], payload]
-            };
+            }
+
 
 
         case 'UPDATE':
+            // if (entity === "subscriptions") {
+            //     return {
+            //         ...store,
+            //         [entity]: [...store[entity], payload]
+            //     }
+            // } else {
+
+            // };
             const entityAfterUpdate = store[entity].map((item) => item._id === payload._id ? payload : item);
             return {
                 ...store,

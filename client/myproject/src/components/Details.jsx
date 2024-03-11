@@ -59,6 +59,8 @@ export default function Details(props) {
 
         setCheckedPermissions(newCheckedPermissions);
 
+        setObj({ ...obj, permissions: newCheckedPermissions })
+
         // console.log(newCheckedPermissions);
 
     };
