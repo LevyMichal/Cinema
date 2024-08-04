@@ -1,8 +1,9 @@
 #root {
-  max-width: 1280px;
+  max-width: 100%;
   margin: 0 auto;
   padding: 2rem;
   text-align: center;
+  background-color: rgba(226, 223, 223, 0.226);
 }
 
 .logo {
@@ -44,18 +45,18 @@
   color: #888;
 }
 
-.navbar {
+/* .navbar {
   list-style-type: none;
   margin: 0;
   padding: 0;
   overflow: hidden;
   background-color: #505050;
   width: 100%;
-}
+} */
 
-li {
+/* li {
   float: left;
-}
+} */
 
 
 h4,

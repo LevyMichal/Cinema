@@ -61,7 +61,6 @@ class UsersBLL:
         return users
 
 
-
     def get_user_by_id(self, id):
         user_db = self.__users_db.get_user_by_id(id)
         user_file = self.__users_file.get_user_by_id(id)
@@ -90,7 +89,13 @@ class UsersBLL:
             "createdDate": created_date,
             "permissions": permissions,
         }
+        # print(user)
+        return user
+    
 
+    
+    def get_user_by_username(self, username):
+        user = self.__users_db.get_user_by_username(username)
         print(user)
         return user
 

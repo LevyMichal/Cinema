@@ -12,6 +12,7 @@ export default function Details(props) {
     const moviesURL = "http://127.0.0.1:5000/subscriptions/movies"
     const membersURL = "http://127.0.0.1:5000/subscriptions/members"
     const usersURL = "http://127.0.0.1:5000/users"
+
     const permissions = [
         "View Subscriptions",
         "Create Subscriptions",
@@ -22,8 +23,6 @@ export default function Details(props) {
         "Update Movies",
         "Delete Movies"]
 
-
-    const [obj, setObj] = useState({})
 
     const itemToUpdate = useSelector((store) => {
         if (props.addMovie || props.addMember || props.addUser) {
@@ -37,15 +36,17 @@ export default function Details(props) {
         }
         else { //props.editUser
             return store.users?.find((user) => user._id == params.id);
-
         }
     });
 
+    const [obj, setObj] = useState({})
     const [checkedPermissions, setCheckedPermissions] = useState(itemToUpdate?.permissions || []);
+
 
     useEffect(() => {
         setCheckedPermissions(itemToUpdate?.permissions || []);
     }, [itemToUpdate]);
+
 
     const handleCheckboxChange = (e, permission) => {
         const newCheckedPermissions = [...checkedPermissions];
@@ -58,16 +59,11 @@ export default function Details(props) {
         }
 
         setCheckedPermissions(newCheckedPermissions);
-
         setObj({ ...obj, permissions: newCheckedPermissions })
-
-        // console.log(newCheckedPermissions);
-
     };
 
 
     //add item
-
     const add = async (event, url, entity) => {
         event.preventDefault(); // Prevent default form submission
 
@@ -76,38 +72,27 @@ export default function Details(props) {
 
         // Dispatch action to update list in Redux store
         dispatch({ type: "ADD", payload: newItem, entity: entity });
-
-        alert(`The new movie "${newItem.name}" created successfully`);
-
-        props.addMovie ? navigate('/mainPage/movies') : null
-        props.addMember ? navigate('/mainPage/subscriptions/members') : null
-        props.addUser ? navigate('/mainPage/users') : null
+        alert(`"${newItem.name}" at ${entity} created successfully`);
+        navigate(`/mainPage/${entity}`)
     };
 
     //update item
-
     const update = async (event, url, entity) => {
         event.preventDefault(); // Prevent default form submission
 
-        console.log(obj);
         const updatedItem = await updateItem(`${url}/${params.id}`, obj);
         console.log(updatedItem);
 
         // Dispatch action to update list in Redux store
         dispatch({ type: 'UPDATE', payload: updatedItem, entity: entity });
-
-        props.editMovie ? navigate('/mainPage/movies') : null
-        props.editMember ? navigate('/mainPage/subscriptions/members') : null
-        props.editUser ? navigate('/mainPage/users') : null
+        navigate(`/mainPage/${entity}`)
     };
 
 
     return (
         <div>
 
-
             {/* add or edit MOVIE: */}
-
             {props.addMovie || props.editMovie ?
                 <div>
                     {props.addMovie ? <h2>New Movie: </h2> : <h2>Edit Movie "{itemToUpdate?.name}" </h2>}
@@ -115,7 +100,6 @@ export default function Details(props) {
                     <form onSubmit={props.addMovie
                         ? () => add(event, moviesURL, "movies")
                         : () => update(event, moviesURL, "movies")}>
-
                         <div>
                             Name: <input required
                                 type="text"
@@ -152,7 +136,6 @@ export default function Details(props) {
 
 
             {/* add or edit MEMBER: */}
-
             {props.addMember || props.editMember ?
                 <div>
                     {props.addMember ? <h2>New Member: </h2> : <h2>Edit Member "{itemToUpdate?.name}" </h2>}
@@ -192,7 +175,6 @@ export default function Details(props) {
 
 
             {/* add or edit USER: */}
-
             {props.addUser || props.editUser ?
                 <div>
                     {props.addUser ? <h2>New User: </h2> : <h2>{`Edit User: ${itemToUpdate?.firstName} ${itemToUpdate?.lastName}`} </h2>}

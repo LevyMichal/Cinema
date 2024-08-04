@@ -18,6 +18,12 @@ def get_one(id):
     return jsonify(user)
 
 
+@users.route("/username/<username>", methods=["GET"])
+def get_one_by_username(username):
+    user = users_BLL.get_user_by_username(username)
+    return jsonify(user)
+
+
 @users.route("/", methods=["POST"])
 def create_user():
     new_user = request.json

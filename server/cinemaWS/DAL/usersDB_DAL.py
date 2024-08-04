@@ -20,6 +20,10 @@ class UsersDB:
         # print(user)
         return user
 
+    def get_user_by_username(self, username):
+        user = self.__collection.find_one({"userName": username})
+        return user
+
     def add_user(self, user):
         self.__collection.insert_one(user)
         # print(user)

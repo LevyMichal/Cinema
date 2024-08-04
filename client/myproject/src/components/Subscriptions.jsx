@@ -10,6 +10,7 @@ export default function Subscriptions(props) {
         movieId: "",
         date: "",
     })
+    const [noSubscriptions, setNoSubscriptions] = useState(false)
 
     const allMovies = useSelector(store => store.movies);
     const allMembers = useSelector(store => store.members);
@@ -69,9 +70,11 @@ export default function Subscriptions(props) {
         };
 
         const result = await addItem("http://127.0.0.1:5000/subscriptions/subscriptions", subscription);
-        console.log(result);
+        console.log(noSubscriptions);
 
-        dispatch({ type: "UPDATE", payload: result, entity: "subscriptions" });
+        noSubscriptions
+            ? dispatch({ type: "ADD", payload: result, entity: "subscriptions" })
+            : dispatch({ type: "UPDATE", payload: result, entity: "subscriptions" });
     }
 
 

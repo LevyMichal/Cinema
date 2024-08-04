@@ -17,6 +17,8 @@ class JSONEncoder(json.JSONEncoder):
 
 app = Flask(__name__)
 app.json_encoder = JSONEncoder
+# app.json = JSONEncoder()
+
 app.register_blueprint(subscriptions, url_prefix="/subscriptions")
 app.register_blueprint(users, url_prefix="/users")
 

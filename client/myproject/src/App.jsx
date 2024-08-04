@@ -5,27 +5,27 @@ import { useEffect, useState } from 'react'
 
 import HomePage from './components/HomePage'
 
-import { getAll } from './utils'
+import { get } from './utils'
 
 function App() {
 
-  const dispatch = useDispatch()
+  // const dispatch = useDispatch()
 
-  useEffect(() => {
+  // useEffect(() => {
 
-    const getAllData = async () => {
-      const users = await getAll("http://localhost:5000/users")
-      const movies = await getAll("http://127.0.0.1:5000/subscriptions/movies")
-      const members = await getAll("http://127.0.0.1:5000/subscriptions/members")
-      const subscriptions = await getAll("http://127.0.0.1:5000/subscriptions/subscriptions")
+  //   const getAllData = async () => {
+  //     const users = await get("http://localhost:5000/users")
+  //     const movies = await get("http://127.0.0.1:5000/subscriptions/movies")
+  //     const members = await get("http://127.0.0.1:5000/subscriptions/members")
+  //     const subscriptions = await get("http://127.0.0.1:5000/subscriptions/subscriptions")
 
-      dispatch({ type: "LOAD", payload: { users, movies, members, subscriptions } })
+  //     dispatch({ type: "LOAD", payload: { users, movies, members, subscriptions } })
 
-    }
+  //   }
 
-    getAllData()
+  //   getAllData()
 
-  }, [])
+  // }, [])
 
 
 
